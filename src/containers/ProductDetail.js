@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -13,25 +12,15 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const productInfo = useSelector((state) => state.allProducts.productInfo);
 
-  const fetchProductInfo = async () => {
-    const response = await axios
-      .get(`https://fakestoreapi.com/products/${productId}`)
-      .catch((err) => {
-        console.log("error", err);
-      });
-    console.log("fetched", response);
-    dispatch(selectedProduct(response.data));
-  };
-
   useEffect(() => {
-    if (productId != "" || productId != undefined) fetchProductInfo();
+    if (productId != "" || productId != undefined)
+      dispatch(selectedProduct(productId));
     return () => {
       dispatch(removeSelectedProduct());
     };
-  }, [productId]);
+  }, []);
 
-  console.log("selected product", productInfo);
-  const { id, title, price, image, category, description } = productInfo;
+  const { title, price, image, category, description } = productInfo;
 
   return (
     <div className="ui grid container">

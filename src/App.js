@@ -7,7 +7,7 @@ import ProductDetails from "./containers/ProductDetail";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Router>
         <Header />
         <Routes>
